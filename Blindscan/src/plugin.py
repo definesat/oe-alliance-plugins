@@ -717,7 +717,7 @@ class Blindscan(ConfigListScreen, Screen):
 			elif tab_hilow[band]:
 				cmd += " --high"
 		elif getBrandOEM() == 'clap':
-			cmd = "clap-blindscan %d %d %d %d %d %d %d %d %d" % (temp_start_int_freq, temp_end_int_freq, self.blindscan_start_symbol.value, self.blindscan_stop_symbol.value, tab_pol[pol], tab_hilow[band], self.feid, self.getNimSocket(self.feid), self.is_c_band_scan) 
+			cmd = "clap-blindscan %d %d %d %d %d %d %d %d %d %d" % (temp_start_int_freq, temp_end_int_freq, self.blindscan_start_symbol.value, self.blindscan_stop_symbol.value, tab_pol[pol], tab_hilow[band], self.feid, self.getNimSocket(self.feid), self.is_c_band_scan,orb[0])
 			self.cmd = cmd
 			self.bsTimer.stop()
 			self.bsTimer.start(2000, True)
@@ -1277,6 +1277,10 @@ class Blindscan(ConfigListScreen, Screen):
 					self.is_circular_band_scan = True
 					self.suggestedPolarisation = _("circular right & circular left")
 					return False
+				if getBrandOEM() == 'clap':
+					if lof_type == "user_defined" and (currLnb.lofl.value == 5150 and currLnb.lofh.value == 5750):
+						self.is_c_band_scan = True
+						return False				
 				return True
 		elif lof_type == "circular_lnb" and nimconfig.configMode.getValue() == "simple" and nimconfig.diseqcMode.value == "single" and cur_orb_pos in (360, 560) and nimconfig.simpleDiSEqCSetCircularLNB.value:
 			return True
