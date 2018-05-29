@@ -719,9 +719,9 @@ class Blindscan(ConfigListScreen, Screen):
 		elif getBrandOEM() == 'clap':
 			self.frontend and self.frontend.closeFrontend()
 			cmd = "clap-blindscan %d %d %d %d %d %d %d %d %d %d" % (temp_start_int_freq, temp_end_int_freq, self.blindscan_start_symbol.value, self.blindscan_stop_symbol.value, tab_pol[pol], tab_hilow[band], self.feid, self.getNimSocket(self.feid), self.is_c_band_scan,orb[0])
-			self.cmd = cmd
-			self.bsTimer.stop()
-			self.bsTimer.start(2000, True)
+			#self.cmd = cmd
+			#self.bsTimer.stop()
+			#self.bsTimer.start(2000, True)
 		print "[Blindscan][prepareScanData] prepared command: [%s]" % (cmd)
 
 		self.thisRun = [] # used to check result corresponds with values used above
